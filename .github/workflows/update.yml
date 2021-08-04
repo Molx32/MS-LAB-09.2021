@@ -1,0 +1,36 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on: push
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  deployToAzure:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: checkout repository
+      - uses: actions/checkout@v2
+      
+      # Login to Azure
+      - name: Azure Login
+      - uses: azure/login@v1
+      - with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      # Check modified files and updates rules
+      - name: Update modified rules
+      - env:
+          RG_NAME: "ms-lab-rg"
+          WK_NAME: "ms-lab-la"
+      - uses: jitterbit/get-changed-files@v1, azure/CLI@v1
+      - run: |
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+          done

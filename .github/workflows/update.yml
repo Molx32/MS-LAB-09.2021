@@ -32,10 +32,13 @@ jobs:
         uses: jitterbit/get-changed-files@v1
         
       - name: Azure CLI script
+        env:
+            RG_NAME: "ms-lab-rg"
+            WK_NAME: "ms-lab-la"
         uses: azure/CLI@v1
         with:
           azcliversion: 2.0.72
           inlineScript: |
             for changed_file in ${{ steps.files.outputs.all }}; do
-              echo "Do something with this ${changed_file}."
+              az deployment group create --resource-group ${{ env.RG_NAME }} --template-file "rule.template.json" --parameters workspaceName=${{ env.WK_NAME }} --verbose
             done

@@ -31,8 +31,11 @@ jobs:
           WK_NAME: "ms-lab-la"
         uses: jitterbit/get-changed-files@v1
         
-      - name: Update modified rules
-        run: |      
-          for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
-          done
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            for changed_file in ${{ steps.files.outputs.all }}; do
+              echo "Do something with this ${changed_file}."
+            done

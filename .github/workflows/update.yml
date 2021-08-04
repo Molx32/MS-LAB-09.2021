@@ -16,21 +16,21 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout repository
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       
       # Login to Azure
       - name: Azure Login
-      - uses: azure/login@v1
-      - with:
+        uses: azure/login@v1
+        with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
       # Check modified files and updates rules
       - name: Update modified rules
-      - env:
+        env:
           RG_NAME: "ms-lab-rg"
           WK_NAME: "ms-lab-la"
-      - uses: jitterbit/get-changed-files@v1
-      - run: |      
+        uses: jitterbit/get-changed-files@v1
+        run: |      
           for changed_file in ${{ steps.files.outputs.all }}; do
             echo "Do something with this ${changed_file}."
           done

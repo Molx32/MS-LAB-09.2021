@@ -31,14 +31,23 @@ jobs:
           WK_NAME: "ms-lab-la"
         uses: jitterbit/get-changed-files@v1
         
+      - name: Update modified rules
+        run: |
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+          done
+          echo "FILES=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+        
       - name: Azure CLI script
         env:
             RG_NAME: "ms-lab-rg"
             WK_NAME: "ms-lab-la"
+            
         uses: azure/CLI@v1
         with:
           azcliversion: 2.24.2
           inlineScript: |
+            echo $FILES
             for changed_file in ${{ steps.files.outputs.all }}; do
               az deployment group create --resource-group ${{ env.RG_NAME }} --template-file ${changed_file} --parameters workspaceName=${{ env.WK_NAME }} --verbose
             done

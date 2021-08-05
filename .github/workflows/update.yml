@@ -60,7 +60,6 @@ jobs:
         with:
           azcliversion: 2.24.2
           inlineScript: |
-            apt-get install -y git
             ls -lah
             git fetch --all 
             for removed_file in ${{ steps.files.outputs.removed }}; do

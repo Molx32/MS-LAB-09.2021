@@ -20,10 +20,11 @@ jobs:
       
       - name: get changed files
         uses: jitterbit/get-changed-files@v1
+        id: files
       - name: Printing
         run: |
           echo "All:"
-          echo "${{ steps.abc.outputs.all }}"
+          echo "${{ steps.files.outputs.all }}"
       
       # Login to Azure
       - name: Azure Login

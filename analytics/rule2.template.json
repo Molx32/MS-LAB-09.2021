@@ -25,7 +25,7 @@
             "location": "[resourceGroup().location]",
             "dependsOn": [],
             "properties": {
-                "description": "This rule detects brute force attacks on Windows VMs - MEGA TEST",
+                "description": "This rule detects brute force attacks on Windows VMs - MEGA TET",
                 "displayName": "RDP Brute force detection on Windows VM",
                 "enabled": true,
                 "query": "SecurityEvent | where EventID == 4625 | summarize count() by Computer, IpAddress, _ResourceId | where count_ > 3",

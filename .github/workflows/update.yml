@@ -62,6 +62,7 @@ jobs:
           inlineScript: |
             for removed_file in ${{ steps.files.outputs.removed }}; do
               echo "Do something with this ${removed_file}."
+              git fetch --all 
               content=`git show HEAD~:${removed_file}`
               echo "::set-output ${content}"
               if [[ $removed_file = *analytics/* ]]

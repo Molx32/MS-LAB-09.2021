@@ -50,8 +50,8 @@ jobs:
                 az deployment group create --resource-group ${{ env.RG_NAME }} --template-file ${changed_file} --parameters workspaceName=${{ env.WK_NAME }} --verbose
               fi
             done
-          # Check modified files and update rules
-          
+
+      # Check modified files and update rules    
       - name: Remove old rules
         env:
             RG_NAME: "ms-lab-rg"
@@ -63,12 +63,7 @@ jobs:
             for removed_file in ${{ steps.files.outputs.removed }}; do
               if [[ $removed_file = *analytics/* ]]
               then
-                content = `cat ${removed_file}`
-                content="${content//'%'/'%25'}"
-                content="${content//$'\n'/'%0A'}"
-                content="${content//$'\r'/'%0D'}"
-                echo "::set-output name=jsonRule::$content"
-                id = fromJson(content).
-                az deployment group create --resource-group ${{ env.RG_NAME }} --template-file ${removed_file} --parameters workspaceName=${{ env.WK_NAME }} --verbose
+                id = `cat ${removed_file} | awk -F: 'FNR == 14 { print $2 }'`
+                az sentinel alert-rule delete --resource-group ${{ env.RG_NAME }} --rule-id ${id} --workspace-name ${{ env.WK_NAME }} --verbose
               fi
             done

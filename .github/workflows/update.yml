@@ -61,8 +61,8 @@ jobs:
           azcliversion: 2.24.2
           inlineScript: |
             ls -lah
-            git fetch --all
-            commit=`git rev-parse @~`
+            git --version
+            git show HEAD:.github/workflows/update.yml
             for removed_file in ${{ steps.files.outputs.removed }}; do
               echo "Do something with this ${removed_file}."
               content=`git show HEAD~:${removed_file}`

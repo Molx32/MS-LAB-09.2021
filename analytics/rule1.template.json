@@ -11,7 +11,7 @@
         },
         "ruleDescription": {
             "type": "string",
-            "defaultValue": "This rule detects brute force attacks on Windows VMs",
+            "defaultValue": "This rule detects brute force attacks on Windows VMs - MEGA TEST",
             "metadata": {
                 "description": "The description of the alert rule."
             }

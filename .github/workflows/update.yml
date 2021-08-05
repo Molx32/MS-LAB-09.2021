@@ -61,7 +61,8 @@ jobs:
           azcliversion: 2.24.2
           inlineScript: |
             for removed_file in ${{ steps.files.outputs.removed }}; do
-              git show HEAD^:${removed_file}
+              content = git show HEAD^:${removed_file}
+              echo ${content}
               if [[ $removed_file = *analytics/* ]]
               then
                 id = `cat ${removed_file} | awk -F: 'FNR == 14 { print $2 }'`

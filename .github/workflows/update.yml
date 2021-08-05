@@ -18,6 +18,13 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v2
       
+      - name: get changed files
+        uses: jitterbit/get-changed-files@v1
+      - name: Printing
+        run: |
+          echo "All:"
+          echo "${{ steps.abc.outputs.all }}"
+      
       # Login to Azure
       - name: Azure Login
         uses: azure/login@v1

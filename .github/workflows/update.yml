@@ -15,12 +15,15 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v2
-      
-      - name: get changed files
+        
+      # Initialize jitterbit
+      - name: Get changed files
         uses: jitterbit/get-changed-files@v1
         id: files
+        
+      # Print changed files (this is a test)
       - name: Printing
         run: |
           echo "All:"
@@ -32,14 +35,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
-      # Check modified files and updates rules
-      - name: Update modified rules
-        env:
-          RG_NAME: "ms-lab-rg"
-          WK_NAME: "ms-lab-la"
-        uses: jitterbit/get-changed-files@v1
-        
-      # Check modified files and updates rules
+      # Check modified files and update rules
       - name: Update modified rules
         env:
             RG_NAME: "ms-lab-rg"
@@ -48,9 +44,31 @@ jobs:
         with:
           azcliversion: 2.24.2
           inlineScript: |
-            for changed_file in ${{ steps.files.outputs.all }}; do
+            for changed_file in ${{ steps.files.outputs.modified }}; do
               if [[ $changed_file = *analytics/* ]]
               then
                 az deployment group create --resource-group ${{ env.RG_NAME }} --template-file ${changed_file} --parameters workspaceName=${{ env.WK_NAME }} --verbose
+              fi
+            done
+          # Check modified files and update rules
+          
+      - name: Remove old rules
+        env:
+            RG_NAME: "ms-lab-rg"
+            WK_NAME: "ms-lab-la"
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.24.2
+          inlineScript: |
+            for removed_file in ${{ steps.files.outputs.removed }}; do
+              if [[ $removed_file = *analytics/* ]]
+              then
+                content = `cat ${removed_file}`
+                content="${content//'%'/'%25'}"
+                content="${content//$'\n'/'%0A'}"
+                content="${content//$'\r'/'%0D'}"
+                echo "::set-output name=jsonRule::$content"
+                id = fromJson(content).
+                az deployment group create --resource-group ${{ env.RG_NAME }} --template-file ${removed_file} --parameters workspaceName=${{ env.WK_NAME }} --verbose
               fi
             done

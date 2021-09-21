@@ -69,7 +69,7 @@ jobs:
 
       - name: Set outputs
         id: vars
-        run: echo "::set-output name=previous_hash::$(git rev-list --parents -n 1 HEAD | cut -d ' ' -f 2)"
+        run: echo "::set-output name=previous_hash::$(git rev-list --parents -n 1 HEAD)"
 
       # Check modified files and update rules    
       - name: Remove old rules

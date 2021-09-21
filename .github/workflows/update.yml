@@ -69,7 +69,7 @@ jobs:
 
       - name: Set outputs
         id: vars
-        run: echo "::set-output name=previous_hash::$(echo 'toto')"
+        run: echo "::set-output name=previous_hash::$(git rev-parse HEAD~)"
 
       # Check modified files and update rules    
       - name: Remove old rules
@@ -83,7 +83,6 @@ jobs:
             git show ${{ steps.vars.outputs.previous_hash }}:.github/workflows/update.yml
             for removed_file in ${{ steps.files.outputs.removed }}; do
               echo "Do something with this ${removed_file}."
-              content=`git show HEAD~:${removed_file}`
               echo "::set-output ${content}"
               if [[ $removed_file = *analytics/* ]]
               then

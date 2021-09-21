@@ -4,7 +4,7 @@
     "parameters": {
         "p_workflow_name": {
             "defaultValue": "BlockBruteForceIP-101",
-            "type": "String"
+            "type": "string"
         }
     },
     "variables": {

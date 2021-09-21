@@ -69,7 +69,7 @@ jobs:
 
       - name: Set outputs
         id: vars
-        run: echo ${{github.event.commits[0].message}}
+        run: echo ${{github.event.commits[1].message}}
 
       # Check modified files and update rules    
       - name: Remove old rules

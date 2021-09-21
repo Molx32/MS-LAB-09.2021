@@ -78,7 +78,7 @@ jobs:
           inlineScript: |
             ls -lah
             git --version
-            hash=`git log -n 1 --pretty=format:"%H"`
+            hash=`git log -n 2 --pretty=format:"%H"`
             git show ${hash}:.github/workflows/update.yml
             for removed_file in ${{ steps.files.outputs.removed }}; do
               echo "Do something with this ${removed_file}."

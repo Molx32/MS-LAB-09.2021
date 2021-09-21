@@ -67,6 +67,10 @@ jobs:
               fi
             done
 
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=previous_hash::$(git log -n 2 --pretty=format:"%H" | tail -1)"
+
       # Check modified files and update rules    
       - name: Remove old rules
         env:
@@ -78,8 +82,7 @@ jobs:
           inlineScript: |
             ls -lah
             git --version
-            hash=`git log -n 2 --pretty=format:"%H" | tail -1`
-            git show ${hash}:.github/workflows/update.yml
+            git show ${{ steps.vars.outputs.previous_hash }}:.github/workflows/update.yml
             for removed_file in ${{ steps.files.outputs.removed }}; do
               echo "Do something with this ${removed_file}."
               content=`git show HEAD~:${removed_file}`

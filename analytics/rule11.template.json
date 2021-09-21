@@ -6,7 +6,7 @@
             "defaultValue": "<Enter Log Analytics Workspace name>",
             "type": "string",
             "metadata": {
-                "description": "Workspac name for Log Analytics where Sentinel is setup"
+                "description": "Workspace name for Log Analytics where Sentinel is setup"
             }
         },
         "ruleId": {
@@ -25,7 +25,7 @@
             "location": "[resourceGroup().location]",
             "dependsOn": [],
             "properties": {
-                "description": "This rule detects brute force attacks on Windows VMs",
+                "description": "[MSLAB] This rule detects brute force attacks on Windows VMs",
                 "displayName": "RDP Brute force detection on Windows VM",
                 "enabled": true,
                 "query": "SecurityEvent | where EventID == 4625 | summarize count() by Computer, IpAddress, _ResourceId | where count_ > 3",

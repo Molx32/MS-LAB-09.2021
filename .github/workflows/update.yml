@@ -69,7 +69,7 @@ jobs:
 
       - name: Set outputs
         id: vars
-        run: echo ${{github.event.commits[1].message}}
+        run: echo "::set-output name=previous_hash::$(git rev-list --parents -n 1 `git log -n 1 --pretty=format:"%H"` | cut -d " " -f 1)"
 
       # Check modified files and update rules    
       - name: Remove old rules
@@ -82,6 +82,7 @@ jobs:
           inlineScript: |
             ls -lah
             git --version
+            hash=`git log -n 1 --pretty=format:"%H" | cut -d " " -f 1`
             git show ${{ steps.vars.outputs.previous_hash }}:.github/workflows/update.yml
             for removed_file in ${{ steps.files.outputs.removed }}; do
               echo "Do something with this ${removed_file}."

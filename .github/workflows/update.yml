@@ -79,6 +79,7 @@ jobs:
             ls -lah
             git --version
             git show HEAD:.github/workflows/update.yml
+            git show HEAD~:.github/workflows/update.yml
             for removed_file in ${{ steps.files.outputs.removed }}; do
               echo "Do something with this ${removed_file}."
               content=`git show HEAD~:${removed_file}`

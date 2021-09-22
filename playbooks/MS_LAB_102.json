@@ -3,12 +3,12 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "p_workflow_name": {
-            "defaultValue": "BlockBruteForceIP-101",
+            "defaultValue": "MS_LAB_102",
             "type": "string"
         }
     },
     "variables": {
-        "connection_name": "sentinel-poc-soc",
+        "connection_name": "ms-lab-connection",
         "clientId": "d617bc99-1c11-454d-ab6d-1a7abc69bc13",
         "clientSecret": "3388f-XO.obmvKw~dz5PQ-rBfP383FrHV~",
         "tenantId": "a63c8ef2-c3d2-4df0-be32-e15159f96f69",
@@ -41,13 +41,7 @@
             "apiVersion": "2017-07-01",
             "name": "[parameters('p_workflow_name')]",
             "location": "westeurope",
-            "tags": {
-                "LogicAppsCategory": "security",
-                "client": "Accord",
-                "costcenter": "FR",
-                "environment": "prod",
-                "projectcode": "SOC"
-            },
+            "tags": {},
             "dependsOn": [
                 "[concat('Microsoft.Web/connections/', variables('connection_name'))]"
             ],

@@ -57,7 +57,7 @@ jobs:
             for changed_file in ${{ steps.files.outputs.modified }}; do
               if [[ $changed_file = *playbooks/* ]]
               then
-                az deployment group create --resource-group ${{ env.RG_NAME }} --template-file ${changed_file} --parameters workspaceName=${{ env.WK_NAME }} --verbose
+                az deployment group create --resource-group ${{ env.RG_NAME }} --template-file ${changed_file} --verbose
               fi
             done
 

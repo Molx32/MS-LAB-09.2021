@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "p_workflow_name": {
-            "defaultValue": "MS_LAB_02",
+            "defaultValue": "MS_LAB_PLAYBOOK_02",
             "type": "string"
         }
     },

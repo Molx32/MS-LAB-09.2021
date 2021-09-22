@@ -11,7 +11,7 @@
         },
         "ruleId": {
         	"type": "string",
-        	"defaultValue": "16938ef8-4aed-4716-980a-6d34e98f4788"
+        	"defaultValue": "16938ef8-4aed-4716-980a-6d34e98f4714"
         }
     },
     "functions": [],
@@ -25,8 +25,8 @@
             "location": "[resourceGroup().location]",
             "dependsOn": [],
             "properties": {
-                "description": "This rule detects brute force attacks on Windows VMs",
-                "displayName": "RDP Brute force detection on Windows VM",
+                "description": "This first rule was created for the MS LAB demo.",
+                "displayName": "[MS LAB] This is my rule #1",
                 "enabled": true,
                 "query": "SecurityEvent | where EventID == 4625 | summarize count() by Computer, IpAddress, _ResourceId | where count_ > 3",
                 "queryFrequency": "PT5M",

@@ -26,7 +26,7 @@
             "dependsOn": [],
             "properties": {
                 "description": "This second rule was created for the MS LAB demo.",
-                "displayName": "[MS LAB] This is my rule number #2",
+                "displayName": "[MS LAB] This is my rule number #02",
                 "enabled": true,
                 "query": "SecurityEvent | where EventID == 4625 | summarize count() by Computer, IpAddress, _ResourceId | where count_ > 3",
                 "queryFrequency": "PT5M",
